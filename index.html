@@ -1,0 +1,1073 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>EduPulse | Student Management</title>
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:"Segoe UI",Arial,sans-serif;
+}
+
+body{
+    background:#f4f6ff;
+    color:#25243a;
+    transition:.3s;
+}
+
+/* HEADER */
+
+header{
+    height:75px;
+    background:linear-gradient(135deg,#641cff,#b52cff,#ff3cac);
+    color:white;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:0 35px;
+    box-shadow:0 8px 25px #6420b855;
+}
+
+.logo{
+    font-size:27px;
+    font-weight:800;
+}
+
+.logo span{
+    color:#ffe600;
+}
+
+.theme{
+    border:none;
+    background:#ffffff22;
+    color:white;
+    padding:10px 15px;
+    border-radius:12px;
+    cursor:pointer;
+}
+
+/* LAYOUT */
+
+.layout{
+    display:flex;
+    min-height:calc(100vh - 75px);
+}
+
+/* SIDEBAR */
+
+.sidebar{
+    width:240px;
+    background:#17152c;
+    padding:25px 15px;
+    color:white;
+}
+
+.sidebar h3{
+    text-align:center;
+    margin-bottom:20px;
+    color:#bdaaff;
+}
+
+.menu{
+    padding:14px;
+    margin:8px 0;
+    border-radius:12px;
+    cursor:pointer;
+    transition:.3s;
+}
+
+.menu:hover{
+    background:linear-gradient(90deg,#7c3cff,#ff3cac);
+    transform:translateX(5px);
+}
+
+.menu.active{
+    background:linear-gradient(90deg,#641cff,#ff3cac);
+}
+
+/* MAIN */
+
+main{
+    flex:1;
+    padding:30px;
+}
+
+/* PAGES */
+
+.page{
+    display:none;
+    animation:fade .4s ease;
+}
+
+.page.active{
+    display:block;
+}
+
+@keyframes fade{
+    from{
+        opacity:0;
+        transform:translateY(10px);
+    }
+    to{
+        opacity:1;
+        transform:translateY(0);
+    }
+}
+
+/* PAGE TITLE */
+
+.page-title{
+    margin-bottom:25px;
+}
+
+.page-title h1{
+    font-size:30px;
+}
+
+.page-title p{
+    color:#777;
+    margin-top:5px;
+}
+
+/* DASHBOARD CARDS */
+
+.cards{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:18px;
+    margin-bottom:25px;
+}
+
+.card{
+    padding:23px;
+    border-radius:20px;
+    color:white;
+    box-shadow:0 12px 30px #0002;
+    position:relative;
+    overflow:hidden;
+}
+
+.card h3{
+    font-size:14px;
+}
+
+.card h2{
+    font-size:32px;
+    margin:8px 0;
+}
+
+.card small{
+    opacity:.9;
+}
+
+.purple{
+    background:linear-gradient(135deg,#6724ff,#9f4dff);
+}
+
+.pink{
+    background:linear-gradient(135deg,#ff287d,#ff5ca8);
+}
+
+.blue{
+    background:linear-gradient(135deg,#008cff,#00c6ff);
+}
+
+.green{
+    background:linear-gradient(135deg,#00a86b,#40d98b);
+}
+
+/* TABLE BOX */
+
+.box{
+    background:white;
+    border-radius:20px;
+    padding:23px;
+    margin-bottom:25px;
+    box-shadow:0 8px 25px #354b8a1c;
+}
+
+.box h2{
+    margin-bottom:18px;
+}
+
+/* TABLE */
+
+.table-container{
+    overflow-x:auto;
+}
+
+table{
+    width:100%;
+    border-collapse:collapse;
+}
+
+th{
+    color:white;
+    padding:14px;
+    text-align:left;
+}
+
+td{
+    padding:14px;
+    border-bottom:1px solid #eee;
+}
+
+tr:hover td{
+    background:#f7f3ff;
+}
+
+/* DIFFERENT TABLE COLORS */
+
+.performance th{
+    background:linear-gradient(90deg,#6b20ff,#a742ff);
+}
+
+.attendance th{
+    background:linear-gradient(90deg,#008cff,#00c6ff);
+}
+
+.assignment th{
+    background:linear-gradient(90deg,#ff287d,#ff5b9e);
+}
+
+.activity th{
+    background:linear-gradient(90deg,#00a86b,#43d98c);
+}
+
+.notification th{
+    background:linear-gradient(90deg,#ff8a00,#ffb300);
+}
+
+.analytics th{
+    background:linear-gradient(90deg,#008b8b,#00c9c9);
+}
+
+.report th{
+    background:linear-gradient(90deg,#e52d27,#ff6b35);
+}
+
+.profile th{
+    background:linear-gradient(90deg,#6a11cb,#2575fc);
+}
+
+/* BADGES */
+
+.badge{
+    padding:6px 11px;
+    border-radius:20px;
+    font-size:12px;
+    font-weight:bold;
+}
+
+.present{
+    background:#d9fff0;
+    color:#008c59;
+}
+
+.absent{
+    background:#ffe1e7;
+    color:#d40035;
+}
+
+.pending{
+    background:#fff0cc;
+    color:#b36b00;
+}
+
+.completed{
+    background:#dff0ff;
+    color:#006bc7;
+}
+
+/* PROGRESS */
+
+.progress{
+    width:130px;
+    height:9px;
+    background:#e7e8f1;
+    border-radius:20px;
+}
+
+.progress-bar{
+    height:100%;
+    border-radius:20px;
+    background:linear-gradient(90deg,#6b20ff,#ff3cac);
+}
+
+/* PROFILE */
+
+.profile-card{
+    display:flex;
+    align-items:center;
+    gap:20px;
+}
+
+.avatar{
+    width:90px;
+    height:90px;
+    border-radius:25px;
+    background:linear-gradient(135deg,#641cff,#ff3cac);
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    color:white;
+    font-size:32px;
+    font-weight:bold;
+}
+
+.info{
+    line-height:2;
+}
+
+/* BACK BUTTON */
+
+.back{
+    margin-bottom:20px;
+    padding:10px 16px;
+    border:none;
+    border-radius:10px;
+    background:#17152c;
+    color:white;
+    cursor:pointer;
+}
+
+/* DARK MODE */
+
+.dark{
+    background:#101124;
+    color:#eee;
+}
+
+.dark .box{
+    background:#1b1d38;
+}
+
+.dark td{
+    border-color:#30324e;
+}
+
+.dark tr:hover td{
+    background:#242747;
+}
+
+.dark .page-title p{
+    color:#aaa;
+}
+
+/* RESPONSIVE */
+
+@media(max-width:950px){
+
+    .cards{
+        grid-template-columns:repeat(2,1fr);
+    }
+
+}
+
+@media(max-width:700px){
+
+    .sidebar{
+        width:75px;
+    }
+
+    .sidebar h3{
+        display:none;
+    }
+
+    .menu{
+        font-size:0;
+        text-align:center;
+    }
+
+    .menu:first-letter{
+        font-size:22px;
+    }
+
+    main{
+        padding:18px;
+    }
+
+    .cards{
+        grid-template-columns:1fr;
+    }
+
+}
+
+</style>
+</head>
+
+
+<body>
+
+<header>
+
+<div class="logo">
+✦ Edu<span>Pulse</span>
+</div>
+
+<div>
+Student Portal
+<button class="theme" onclick="darkMode()">🌙</button>
+</div>
+
+</header>
+
+
+<div class="layout">
+
+
+<!-- SIDEBAR -->
+
+<aside class="sidebar">
+
+<h3>STUDENT MENU</h3>
+
+<div class="menu active" onclick="openPage('dashboard',this)">
+🏠 Dashboard
+</div>
+
+<div class="menu" onclick="openPage('performance',this)">
+📊 Performance
+</div>
+
+<div class="menu" onclick="openPage('attendance',this)">
+📅 Attendance
+</div>
+
+<div class="menu" onclick="openPage('assignments',this)">
+📝 Assignments
+</div>
+
+<div class="menu" onclick="openPage('activities',this)">
+🏆 Activities
+</div>
+
+<div class="menu" onclick="openPage('notifications',this)">
+🔔 Notifications
+</div>
+
+<div class="menu" onclick="openPage('analytics',this)">
+📈 Analytics
+</div>
+
+<div class="menu" onclick="openPage('reports',this)">
+📄 Reports
+</div>
+
+<div class="menu" onclick="openPage('profile',this)">
+👤 Profile
+</div>
+
+</aside>
+
+
+<main>
+
+
+<!-- DASHBOARD -->
+
+<section id="dashboard" class="page active">
+
+<div class="page-title">
+
+<h1>Welcome, Janani 👋</h1>
+
+<p>Smart Student Performance & Activity Management System</p>
+
+</div>
+
+
+<div class="cards">
+
+<div class="card purple">
+<h3>Attendance</h3>
+<h2>92%</h2>
+<small>Excellent</small>
+</div>
+
+<div class="card pink">
+<h3>Average Marks</h3>
+<h2>86%</h2>
+<small>Above Average</small>
+</div>
+
+<div class="card blue">
+<h3>Assignments</h3>
+<h2>12</h2>
+<small>9 Completed</small>
+</div>
+
+<div class="card green">
+<h3>Activities</h3>
+<h2>08</h2>
+<small>3 Certificates</small>
+</div>
+
+</div>
+
+
+<div class="box">
+
+<h2>🌟 Quick Overview</h2>
+
+<div class="table-container">
+
+<table class="performance">
+
+<tr>
+<th>Module</th>
+<th>Status</th>
+<th>Details</th>
+</tr>
+
+<tr>
+<td>📊 Performance</td>
+<td><span class="badge completed">Updated</span></td>
+<td>86% Average</td>
+</tr>
+
+<tr>
+<td>📅 Attendance</td>
+<td><span class="badge present">Good</span></td>
+<td>92%</td>
+</tr>
+
+<tr>
+<td>📝 Assignments</td>
+<td><span class="badge pending">2 Pending</span></td>
+<td>9 Completed</td>
+</tr>
+
+</table>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- PERFORMANCE -->
+
+<section id="performance" class="page">
+
+<button class="back" onclick="openPage('dashboard')">
+← Dashboard
+</button>
+
+<div class="page-title">
+
+<h1>📊 Academic Performance</h1>
+
+<p>Subject-wise marks and progress</p>
+
+</div>
+
+<div class="box">
+
+<table class="performance">
+
+<tr>
+<th>Subject</th>
+<th>Internal</th>
+<th>Assignment</th>
+<th>Overall</th>
+<th>Progress</th>
+</tr>
+
+<tr>
+<td>Java Programming</td>
+<td>45/50</td>
+<td>18/20</td>
+<td><b>91%</b></td>
+<td>
+<div class="progress">
+<div class="progress-bar" style="width:91%"></div>
+</div>
+</td>
+</tr>
+
+<tr>
+<td>Python</td>
+<td>43/50</td>
+<td>19/20</td>
+<td><b>89%</b></td>
+<td>
+<div class="progress">
+<div class="progress-bar" style="width:89%"></div>
+</div>
+</td>
+</tr>
+
+<tr>
+<td>Web Technology</td>
+<td>47/50</td>
+<td>20/20</td>
+<td><b>94%</b></td>
+<td>
+<div class="progress">
+<div class="progress-bar" style="width:94%"></div>
+</div>
+</td>
+</tr>
+
+<tr>
+<td>Operating Systems</td>
+<td>40/50</td>
+<td>17/20</td>
+<td><b>84%</b></td>
+<td>
+<div class="progress">
+<div class="progress-bar" style="width:84%"></div>
+</div>
+</td>
+</tr>
+
+</table>
+
+</div>
+
+</section>
+
+
+<!-- ATTENDANCE -->
+
+<section id="attendance" class="page">
+
+<button class="back" onclick="openPage('dashboard')">
+← Dashboard
+</button>
+
+<div class="page-title">
+
+<h1>📅 Attendance Management</h1>
+
+<p>Daily attendance records</p>
+
+</div>
+
+<div class="box">
+
+<table class="attendance">
+
+<tr>
+<th>Date</th>
+<th>Subject</th>
+<th>Time</th>
+<th>Status</th>
+</tr>
+
+<tr>
+<td>28 Sep 2026</td>
+<td>Java</td>
+<td>09:00 AM</td>
+<td><span class="badge present">Present</span></td>
+</tr>
+
+<tr>
+<td>27 Sep 2026</td>
+<td>Python</td>
+<td>10:00 AM</td>
+<td><span class="badge present">Present</span></td>
+</tr>
+
+<tr>
+<td>26 Sep 2026</td>
+<td>OS</td>
+<td>11:00 AM</td>
+<td><span class="badge absent">Absent</span></td>
+</tr>
+
+<tr>
+<td>25 Sep 2026</td>
+<td>Web Technology</td>
+<td>02:00 PM</td>
+<td><span class="badge present">Present</span></td>
+</tr>
+
+</table>
+
+</div>
+
+</section>
+
+
+<!-- ASSIGNMENTS -->
+
+<section id="assignments" class="page">
+
+<button class="back" onclick="openPage('dashboard')">
+← Dashboard
+</button>
+
+<div class="page-title">
+
+<h1>📝 Assignments</h1>
+
+<p>Track your academic assignments</p>
+
+</div>
+
+<div class="box">
+
+<table class="assignment">
+
+<tr>
+<th>Assignment</th>
+<th>Subject</th>
+<th>Due Date</th>
+<th>Status</th>
+</tr>
+
+<tr>
+<td>Java OOP Program</td>
+<td>Java</td>
+<td>30 Sep 2026</td>
+<td><span class="badge completed">Completed</span></td>
+</tr>
+
+<tr>
+<td>ML Mini Project</td>
+<td>Python</td>
+<td>02 Oct 2026</td>
+<td><span class="badge pending">Pending</span></td>
+</tr>
+
+<tr>
+<td>HTML Portfolio</td>
+<td>Web Technology</td>
+<td>04 Oct 2026</td>
+<td><span class="badge completed">Completed</span></td>
+</tr>
+
+<tr>
+<td>Deadlock Algorithm</td>
+<td>OS</td>
+<td>06 Oct 2026</td>
+<td><span class="badge pending">Pending</span></td>
+</tr>
+
+</table>
+
+</div>
+
+</section>
+
+
+<!-- ACTIVITIES -->
+
+<section id="activities" class="page">
+
+<button class="back" onclick="openPage('dashboard')">
+← Dashboard
+</button>
+
+<div class="page-title">
+
+<h1>🏆 Student Activities</h1>
+
+<p>Achievements and extracurricular activities</p>
+
+</div>
+
+<div class="box">
+
+<table class="activity">
+
+<tr>
+<th>Activity</th>
+<th>Category</th>
+<th>Date</th>
+<th>Achievement</th>
+</tr>
+
+<tr>
+<td>AI & Automation Workshop</td>
+<td>Technical</td>
+<td>18 Sep 2026</td>
+<td><span class="badge completed">Certificate</span></td>
+</tr>
+
+<tr>
+<td>English Communication</td>
+<td>Skill</td>
+<td>30 Jul 2026</td>
+<td><span class="badge completed">Completed</span></td>
+</tr>
+
+<tr>
+<td>College Hackathon</td>
+<td>Competition</td>
+<td>10 Aug 2026</td>
+<td><span class="badge completed">Participant</span></td>
+</tr>
+
+</table>
+
+</div>
+
+</section>
+
+
+<!-- NOTIFICATIONS -->
+
+<section id="notifications" class="page">
+
+<button class="back" onclick="openPage('dashboard')">
+← Dashboard
+</button>
+
+<div class="page-title">
+
+<h1>🔔 Notifications</h1>
+
+<p>Latest college and academic updates</p>
+
+</div>
+
+<div class="box">
+
+<table class="notification">
+
+<tr>
+<th>Notification</th>
+<th>Date</th>
+<th>Priority</th>
+</tr>
+
+<tr>
+<td>Internal assessment marks updated</td>
+<td>28 Sep</td>
+<td><span class="badge completed">Normal</span></td>
+</tr>
+
+<tr>
+<td>Python assignment deadline is near</td>
+<td>27 Sep</td>
+<td><span class="badge pending">Important</span></td>
+</tr>
+
+<tr>
+<td>Web Technology practical tomorrow</td>
+<td>26 Sep</td>
+<td><span class="badge present">Info</span></td>
+</tr>
+
+</table>
+
+</div>
+
+</section>
+
+
+<!-- ANALYTICS -->
+
+<section id="analytics" class="page">
+
+<button class="back" onclick="openPage('dashboard')">
+← Dashboard
+</button>
+
+<div class="page-title">
+
+<h1>📈 Student Analytics</h1>
+
+<p>Overall academic performance analysis</p>
+
+</div>
+
+<div class="box">
+
+<table class="analytics">
+
+<tr>
+<th>Metric</th>
+<th>Value</th>
+<th>Performance</th>
+</tr>
+
+<tr>
+<td>Attendance</td>
+<td>92%</td>
+<td>Excellent</td>
+</tr>
+
+<tr>
+<td>Average Marks</td>
+<td>86%</td>
+<td>Very Good</td>
+</tr>
+
+<tr>
+<td>Assignments</td>
+<td>75%</td>
+<td>Good</td>
+</tr>
+
+<tr>
+<td>Activities</td>
+<td>80%</td>
+<td>Very Good</td>
+</tr>
+
+</table>
+
+</div>
+
+</section>
+
+
+<!-- REPORTS -->
+
+<section id="reports" class="page">
+
+<button class="back" onclick="openPage('dashboard')">
+← Dashboard
+</button>
+
+<div class="page-title">
+
+<h1>📄 Academic Reports</h1>
+
+<p>Student academic summary</p>
+
+</div>
+
+<div class="box">
+
+<table class="report">
+
+<tr>
+<th>Report</th>
+<th>Academic Year</th>
+<th>Score</th>
+<th>Status</th>
+</tr>
+
+<tr>
+<td>Semester Performance</td>
+<td>2026-2027</td>
+<td>86%</td>
+<td><span class="badge completed">Generated</span></td>
+</tr>
+
+<tr>
+<td>Attendance Report</td>
+<td>2026-2027</td>
+<td>92%</td>
+<td><span class="badge completed">Generated</span></td>
+</tr>
+
+<tr>
+<td>Activity Report</td>
+<td>2026-2027</td>
+<td>80%</td>
+<td><span class="badge completed">Generated</span></td>
+</tr>
+
+</table>
+
+</div>
+
+</section>
+
+
+<!-- PROFILE -->
+
+<section id="profile" class="page">
+
+<button class="back" onclick="openPage('dashboard')">
+← Dashboard
+</button>
+
+<div class="page-title">
+
+<h1>👤 Student Profile</h1>
+
+<p>Your academic information</p>
+
+</div>
+
+<div class="box">
+
+<div class="profile-card">
+
+<div class="avatar">
+JS
+</div>
+
+<div class="info">
+
+<h2>Janani S</h2>
+
+<p><b>Student ID:</b> EDU2026JS</p>
+
+<p><b>Department:</b> Computer Science</p>
+
+<p><b>College:</b> Sree Abiraami Arts & Science College for Women</p>
+
+<p><b>Academic Year:</b> 2026 - 2027</p>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+
+</main>
+
+</div>
+
+
+<script>
+
+/* OPEN MODULE */
+
+function openPage(page,element){
+
+    document.querySelectorAll(".page")
+    .forEach(function(p){
+        p.classList.remove("active");
+    });
+
+    document.getElementById(page)
+    .classList.add("active");
+
+
+    document.querySelectorAll(".menu")
+    .forEach(function(m){
+        m.classList.remove("active");
+    });
+
+    if(element){
+        element.classList.add("active");
+    }
+
+    window.scrollTo({
+        top:0,
+        behavior:"smooth"
+    });
+}
+
+
+/* DARK MODE */
+
+function darkMode(){
+
+    document.body.classList.toggle("dark");
+
+}
+
+</script>
+
+</body>
+</html>
